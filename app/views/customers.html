@@ -1,0 +1,22 @@
+
+
+<div class="jumbotron">
+  <h1>'Allo, 'Allo!</h1>
+  <p class="lead">Registered customers</p>
+    <div class="row marketing">
+<div id=customerList>
+    <a href="#/customer/{{c.id}}" ng-repeat="c in customers"><li>{{c.data.name}},{{c.data.surname}},{{c.data.note}}</li></a>
+        </div>
+  <div ng-repeat="customer in customers">
+      <h4>{{thing.name}}</h4>
+      <p>{{thing.info}}</p>
+  </div>
+</div>
+  <p><a class="btn btn-lg btn-success" href="#">Splendid!</a></p>
+</div>
+
+
+
+<div class="footer">
+  <p>♥ from the Yeoman team</p>
+</div>

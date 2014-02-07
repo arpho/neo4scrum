@@ -9,9 +9,15 @@ angular.module('neo4ScrumApp', [
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
+        templateUrl: 'views/projects.html',
         controller: 'MainCtrl'
-      })
+      }).when('/customers',{
+        templateUrl:'views/customers.html',
+        controller:'CustomerListCtrl'
+    }).when('/customer/:customerId',{
+        templateUrl: 'views/customer.html',
+        controller: 'CustomerCtrl'
+    })
       .otherwise({
         redirectTo: '/'
       });

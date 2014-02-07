@@ -21,6 +21,7 @@ require('./lib/db/dummydata');
 
 // Controllers
 var api = require('./lib/controllers/api');
+var apiCustomers = require('./lib/controllers/customers')
 
 // Express Configuration
 app.configure(function(){
@@ -43,6 +44,8 @@ app.configure('production', function(){
 
 // Routes
 app.get('/api/awesomeThings', api.awesomeThings);
+app.get('/api/customersList',apiCustomers.getCustomers);
+app.get('/api/customer/:customerId',apiCustomers.getCustomer);
 
 // Start server
 var port = process.env.PORT || 3000;
