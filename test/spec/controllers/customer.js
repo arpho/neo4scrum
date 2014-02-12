@@ -12,8 +12,7 @@ describe('Controller: CustomerCtrl', function () {
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
     $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('/api/customer/:25618')
-      .respond({columns:['r','c','o'],
+    $httpBackend.expectGET('/api/customer/:25618').respond({columns:['r','c','o'],
                 data:[
                     {data:{ name: 'Giuseppe', surname: 'D\'Amico', note: 'it\'s me' },id: '25618'},
                     {data:{use:'residenza'},type: 'LIVES_IN'},// relazione indirizzo
@@ -82,10 +81,10 @@ describe('Controller: CustomerCtrl', function () {
   }));
 
   it('should attach a list of customers with one only item', function () {
-    //expect(scope.awesomeThings).toBeUndefined();
-          console.log('end test');
+    expect(scope.customers).toBeUndefined();
+         // console.log('end test');
     $httpBackend.flush();
-      console.log(scope.customers);
+     // console.log(scope.customers);
     expect(scope.customers.length).toBe(1);
   });
 });

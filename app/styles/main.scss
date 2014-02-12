@@ -91,7 +91,12 @@ body {
 }
 /*posizione customerProperties*/
 #customerProperties {
+  left: -248px;
   position: relative;
-  top: 248px;
-  left: -32px;
+}
+/*posizione indirizzi*/
+#customerAddress {
+  position: relative;
+  left: 207px;
+  top: -188px;
 }
