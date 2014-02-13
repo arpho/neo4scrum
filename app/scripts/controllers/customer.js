@@ -15,7 +15,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
              e quiundi il significato di item e lo aggiunge allo array relativo di customer*/
             var add2customer = function(triplet) {
                 console.log(triplet[1].type);
-                $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data});
+                $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data,id:triplet[2].id});
             }
             var details = customer.data.length/3; // ottengo il numero dettagli afferenti al cliente
             //aggiungo i dettagli a $scope.customer
