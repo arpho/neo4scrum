@@ -96,7 +96,23 @@ body {
 }
 /*posizione indirizzi*/
 #customerAddress {
+  border: 1px solid;
+  left: 255px;
   position: relative;
-  left: 207px;
-  top: -188px;
+  top: -124px;
+}
+/*posizione telefoni*/
+#customerPhone {
+  border: 1px solid;
+  left: 255px;
+  position: relative;
+  top: -125px;
+}
+
+/*posizione mail*/
+#customerEmail {
+  border: 1px solid;
+  left: -324px;
+  position: relative;
+  top: -222px;
 }

@@ -12,11 +12,19 @@
         Nota <input type="text" name='note' ng-model="customer.note">
         </div>
     <div id="customerAddress">
-    <h4>indirizzi</h4>
+    <h4>Indirizzi</h4>
 <ul>
     <li ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}</li>
     </ul>
 </div>
+    <div id='customerPhone'>
+        <h4>Telefoni</h4>
+    <ul><li ng-repeat="a in customer.ANSWERS_TO">{{a.use.use}},{{a.data.note}},{{a.data.number}}</li></ul>
+    </div>
+    <div id='customerEmail'><h4>Emails</h4>
+    <ul>
+        <li ng-repeat="a in customer.RECEIVES">{{a.use.use}},{{a.data.mail}}</li></ul>
+    </div>
     <div class="row marketing">
         
 </div>
