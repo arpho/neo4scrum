@@ -1,6 +1,6 @@
 'use strict';
 angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams', function($scope,$http,$routeParams) {
-    var customerId = $routeParams.customerId; // rimuovo :
+    var customerId = $routeParams.customerId; 
     if (typeof customerId != 'undefined') {
         console.log("cerco customer "+customerId);
         $http.get('/api/customer/:'+customerId).success(function(customer) {
@@ -26,6 +26,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         })
     }
     else {
+            $scope.customer = {};
             $scope.action = 'save';
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];

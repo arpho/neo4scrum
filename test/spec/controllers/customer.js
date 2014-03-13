@@ -11,6 +11,7 @@ describe('Controller: CustomerCtrl', function () {
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function (_$httpBackend_, $controller, $rootScope) {
+      console.log('before each');
     $httpBackend = _$httpBackend_;
     $httpBackend.expectGET('/api/customer/:25618').respond({columns:['r','c','o'],
                 data:[
@@ -81,8 +82,9 @@ describe('Controller: CustomerCtrl', function () {
   }));
 
   it('should attach a list of customers with one only item', function () {
-    expect(scope.customers).toBeUndefined();
+    //expect(scope.customers).toBeUndefined();
          // console.log('end test');
+    console.log('flush');
     $httpBackend.flush();
      // console.log(scope.customers);
     expect(scope.customers.length).toBe(1);
