@@ -12,7 +12,8 @@
         Nota <input type="text" name='note' ng-model="customer.note">
         </div>
     <div id="customerAddress">
-    <h4>Indirizzi</h4>
+    <h4>Address</h4>
+        <button id="addAddress" ng-click="addAddress()">AddAddress</button>
 <ul>
     <li ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}</li>
     </ul>

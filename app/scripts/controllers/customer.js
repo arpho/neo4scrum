@@ -10,8 +10,17 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $scope.customer.RECEIVES = [];
             $scope.customer.id = customer.data[0].id;
             $scope.action = 'update';
-            createDialogService('templates/example.html', {
-              id: 'complexDialog',
+            $scope.addAddress = function(){
+                console.log('showing popup');
+                createDialogService('templates/addAddress.html',{
+                    id:'addAddressDialog',
+                    backdrop:true,
+                    success: {label: 'Success', fn: function() {console.log('Complex modal closed');}},
+                    cancel: {label: 'Cancel', fn: function() {console.log('Complex modal closed');}}
+                });
+            }
+            /*createDialogService('templates/example.html', {
+              id: 'testDialog',
               title: 'A Complex Modal Dialog',
               backdrop: true,
              // controller: 'ComplexModalController',
@@ -22,7 +31,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         	  	name: 'My Asset',
         	  	description: 'A Very Nice Asset'
         	  }
-        	});
+        	});*/
              /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
              customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
              e quiundi il significato di item e lo aggiunge allo array relativo di customer*/
