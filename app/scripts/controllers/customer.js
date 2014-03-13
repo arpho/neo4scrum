@@ -1,5 +1,5 @@
 'use strict';
-angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams', function($scope,$http,$routeParams) {
+angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams','createDialog', function($scope,$http,$routeParams,createDialogService) {
     var customerId = $routeParams.customerId; 
     if (typeof customerId != 'undefined') {
         console.log("cerco customer "+customerId);
@@ -10,6 +10,19 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $scope.customer.RECEIVES = [];
             $scope.customer.id = customer.data[0].id;
             $scope.action = 'update';
+            createDialogService('templates/example.html', {
+              id: 'complexDialog',
+              title: 'A Complex Modal Dialog',
+              backdrop: true,
+             // controller: 'ComplexModalController',
+              success: {label: 'Success', fn: function() {console.log('Complex modal closed');}}
+            }, {
+        	  myVal: 15,
+        	  assetDetails: {
+        	  	name: 'My Asset',
+        	  	description: 'A Very Nice Asset'
+        	  }
+        	});
              /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
              customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
              e quiundi il significato di item e lo aggiunge allo array relativo di customer*/

@@ -4,7 +4,8 @@ angular.module('neo4ScrumApp', [
   'ngCookies',
   'ngResource',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+    'fundoo.services'
 ])
   .config(function ($routeProvider) {
     $routeProvider
