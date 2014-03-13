@@ -1,0 +1,14 @@
+<div id="ngpopup">
+<h3 class="the-header">{{controller.header}}</h3>
+<div class="the-body">
+    <form name="newAddress" clas='css-form' novalidate>
+    Via: <input type='text' ng-model='street' /><br>
+    City: <input type='text' ng-model='city' /><br>
+    Cap: <input type='text' ng-model='cap' /><br>
+    Num: <input type='text' ng-model='number' /><br>
+    uso: <input type='text' ng-model='use' /><br>
+        <button ng-click='add()'>aggiungi indirizzo</button>
+    </form>
+</div>
+<a class="close">close</a>
+</div>

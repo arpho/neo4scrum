@@ -1,22 +1,28 @@
 'use strict';
-angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams','createDialog', function($scope,$http,$routeParams,createDialogService) {
+angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams','createDialog','$rootScope', function($scope,$http,$routeParams,createDialogService,$rootScope) {
     var customerId = $routeParams.customerId; 
     if (typeof customerId != 'undefined') {
         console.log("cerco customer "+customerId);
         $http.get('/api/customer/:'+customerId).success(function(customer) {
-            $scope.customer = customer.data[0].data;
+            $rootScope.customer = customer.data[0].data;
+            //aggiungo i campi dei dettagli
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
             $scope.customer.RECEIVES = [];
             $scope.customer.id = customer.data[0].id;
+            $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
+            $rootScope.customer.phones = {added:[],toDelete:[],modified:[]};
+            $rootScope.customer.address = {added:[],toDelete:[],modified:[]};
+            $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
             $scope.action = 'update';
             $scope.addAddress = function(){
-                console.log('showing popup');
                 createDialogService('templates/addAddress.html',{
+                    title: 'Add an address',
                     id:'addAddressDialog',
                     backdrop:true,
+                    controller:'AddAddressCtrl',
                     success: {label: 'Success', fn: function() {console.log('Complex modal closed');}},
-                    cancel: {label: 'Cancel', fn: function() {console.log('Complex modal closed');}}
+                    cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
                 });
             }
             /*createDialogService('templates/example.html', {
