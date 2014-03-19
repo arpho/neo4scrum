@@ -4,8 +4,9 @@ angular.module('neo4ScrumApp').controller('AddAddressCtrl',['$scope','$http','$r
                              address.city = this.city;
                              address.number = this.number;
                              address.cap = this.cap;
+                             address.just_insert = true
                              address.use = this.use;
-                             $rootScope.customer.address.added.push(address);
+                             $rootScope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                              console.log($rootScope.customer);
                             }
 }]);

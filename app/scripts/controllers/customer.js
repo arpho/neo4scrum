@@ -5,6 +5,9 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         console.log("cerco customer "+customerId);
         $http.get('/api/customer/:'+customerId).success(function(customer) {
             $rootScope.customer = customer.data[0].data;
+            $scope.addressToDelete = function(a){
+                a.toDelete = true;
+                                                }
             //aggiungo i campi dei dettagli
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];

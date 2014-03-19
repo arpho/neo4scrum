@@ -15,7 +15,7 @@
     <h4>Address</h4>
         <button id="addAddress" ng-click="addAddress()">AddAddress</button>
 <ul>
-    <li ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}</li>
+    <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}} <img ng-src="{{pictures/delete.png}}" ng-click="addressToDelete(a)">c</button></li>
     </ul>
 </div>
     <div id='customerPhone'>
