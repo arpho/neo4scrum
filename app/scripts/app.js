@@ -14,7 +14,7 @@ angular.module('neo4ScrumApp', [
         controller: 'MainCtrl'
       }).when('/customers',{
         templateUrl:'views/customers.html',
-        controller:'CustomerListCtrl'
+        controller:'CustomersListCtrl'
     }).when('/customer/:customerId',{
         templateUrl: 'views/customer.html',
         controller: 'CustomerCtrl'
