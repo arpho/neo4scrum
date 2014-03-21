@@ -2,6 +2,7 @@
 angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams','createDialog','$rootScope', function($scope,$http,$routeParams,createDialogService,$rootScope) {
     var customerId = $routeParams.customerId; 
     if (typeof customerId != 'undefined') {
+        $scope.pageTitle = "Customer's view"
         console.log("cerco customer "+customerId);
         $http.get('/api/customer/:'+customerId).success(function(customer) {
             $rootScope.customer = customer.data[0].data;
@@ -24,7 +25,12 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     id:'addAddressDialog',
                     backdrop:true,
                     controller:'AddAddressCtrl',
-                    success: {label: 'Success', fn: function() {console.log('Complex modal closed');}},
+                    success: {label: 'addAddress', fn: function() {
+                        console.log('Complex modal closed');
+                        
+                                                               
+                                                               }
+                             },
                     cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
                 });
             }
