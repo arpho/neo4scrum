@@ -33,7 +33,7 @@ it("should add an item to the address list with class 'nuovo'",function(){
             expect(arr.length).toEqual(initial_length+1);
             var inserted_item = element(arr[arr.length-1]) //get the last element, the just inserted one
             //console.log(inserted_item);
-            var lastRow = arr[2];
+            var lastRow = arr[arr.length-1];
             var attributes = '';
             //console.log(
                 arr[2].getAttribute('className').then(function(o){
