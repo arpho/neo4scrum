@@ -12,6 +12,7 @@ it("should loaad the customers list page", function(){
     var ele = by.id('customersList');
   expect(ptor.isElementPresent(ele)).toBe(true);
 })
+
  it('should load the home page', function() {
   var ele = by.id('home');
   expect(ptor.isElementPresent(ele)).toBe(true);
