@@ -34,16 +34,20 @@ it("should add an item to the address list with class 'nuovo'",function(){
             var inserted_item = element(arr[arr.length-1]) //get the last element, the just inserted one
             //console.log(inserted_item);
             var lastRow = arr[arr.length-1];
+            console.log(lastRow.getText().then(function(v){
+                expect(v).toMatch('nonno');
+            }));
             var attributes = '';
             //console.log(
-                arr[2].getAttribute('className').then(function(o){
+                arr[arr.length-1].getAttribute('className').then(function(o){
                                                                            // console.log('then');
                                                                             //console.log(o)
                                                                             attributes = o;
                                                                             //console.log(attributes);
                                                                             var pos = attributes.indexOf('nuovo'); // if != -1 nuovo is in the attribute's list
                                                                             //console.log(attributes.indexOf('nuovo'));
-                                                                            expect(pos!=-1).toBe(true);
+                                                                          //  expect(pos!=-1).toBe(true);*/
+                                                        expect(attributes).toMatch('nuovo');
                                                                          });
             
         })

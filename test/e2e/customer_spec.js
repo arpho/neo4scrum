@@ -27,7 +27,7 @@ it("should show the customer's Email",function(){
   expect(ptor.isElementPresent(ele)).toBe(true);})
 
 it("should open modal-Dialog",function(){
-    var ele = by.id('addAddress');
+    //var ele = by.id('addAddress');
     element(by.id('addAddress')).click();
     var mod = by.id('addAddressDialog');
     expect(ptor.isElementPresent(mod)).toBe(true);})
@@ -36,8 +36,9 @@ it('should add an item to the address list',function(){
     ptor.findElements(protractor.By.repeater('a in customer.LIVES_IN')).then(function(arr) {
   expect(arr.length).toEqual(2); // or whatever.
         // open modal window
-  var ele = by.id('addAddress');
-    element(by.id('addAddress')).click();
+  //var ele = by.id('fundooSuccess');
+    element(by.id('addAddress')).click(); // open the modal dialog
+    element(by.id('fundooSuccessButton')).click();
 // set values to  new address
 //ptor.findElement(protractor.By.model('email'));
 });

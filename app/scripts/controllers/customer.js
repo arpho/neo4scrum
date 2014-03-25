@@ -26,6 +26,15 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     backdrop:true,
                     controller:'AddAddressCtrl',
                     success: {label: 'addAddress', fn: function() {
+                        console.log('inside success');
+                        var address = {};
+                             address.just_insert = true
+                             address.street = document.getElementById('newStreet').form[0].value;
+                             address.city = document.getElementById('newStreet').form[1].value;
+                             address.cap = document.getElementById('newStreet').form[2].value;
+                             address.number = document.getElementById('newStreet').form[3].value;
+                             address.use = document.getElementById('newStreet').form[4].value;
+                             $rootScope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                         console.log('Complex modal closed');
                         
                                                                

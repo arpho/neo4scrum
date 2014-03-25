@@ -2,11 +2,11 @@
 <h3 class="the-header">{{controller.header}}</h3>
 <div class="the-body">
     <form name="newAddress" clas='css-form' novalidate>
-    Via: <input type='text' ng-model='street' /><br>
-    City: <input type='text' ng-model='city' /><br>
-    Cap: <input type='text' ng-model='cap' /><br>
-    Num: <input type='text' ng-model='number' /><br>
-    uso: <input type='text' ng-model='use' /><br>
+    Via: <input type='text' ng-model='street' id='newStreet' /><br>
+    City: <input type='text' ng-model='city' id='newCity'/><br>
+    Cap: <input type='text' ng-model='cap' id='newCap'/><br>
+    Num: <input type='text' ng-model='number' id='newNumber'/><br>
+    uso: <input type='text' ng-model='use' id='newUse' /><br>
         <button  id='addAddressButton' ng-click='add()'>aggiungi indirizzo</button>
     </form>
 </div>
