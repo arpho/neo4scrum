@@ -12,6 +12,9 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $scope.telephoneToDelete = function(a){
                 a.toDelete = true;
             }
+            $scope.mailToDelete = function(a){
+                a.toDelete = true;
+            }
             //aggiungo i campi dei dettagli
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
@@ -58,6 +61,27 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              address.use = document.getElementById('newStreet').form[4].value;
                              $rootScope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                         console.log('Complex modal closed');
+                        
+                                                               
+                                                               }
+                             },
+                    cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
+                });
+            }
+            $scope.addMail = function(){
+                createDialogService('templates/addMail.html',{
+                    title: 'Add an E-mail',
+                    id:'addMailDialog',
+                    backdrop:true,
+                    controller:'AddMailCtrl',
+                    success: {label: 'addMail', fn: function() {
+                        console.log('inside success');
+                        var mail = {};
+                             mail.just_insert = true
+                             mail.mail = document.getElementById('newMail').form[0].value;
+                             mail.use = document.getElementById('newUse').form[1].value;
+                             mail.note = document.getElementById('newNote').form[2].value;
+                             $rootScope.customer.RECEIVES.push({data:mail,use:{use:mail.use,id:-1}});
                         
                                                                
                                                                }

@@ -13,17 +13,18 @@
         </div>
     <div id="customerAddress">
     <h4>Address</h4>
-        <button id="addAddress" ng-click="addAddress()">AddAddress</button>
+        <button id="addAddress" ng-click="addAddress()">Add Address</button>
 <ul>
     <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <img ng-src="img/delete.png" ng-click="addressToDelete(a)"/></li>
     </ul>
 </div>
     <div id='customerPhone'>
         <h4>Telefoni</h4>
-        <button id="addTelephone" ng-click="addTelephone()">AddTelephone</button>
+        <button id="addTelephone" ng-click="addTelephone()">Add Telephone</button>
     <ul><li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete}" ng-repeat="a in customer.ANSWERS_TO">{{a.use.use}},{{a.data.note}},{{a.data.number}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <img ng-src="img/delete.png" ng-click="telephoneToDelete(a)"/></li></ul>
     </div>
     <div id='customerEmail'><h4>Emails</h4>
+        <button id="addMail" ng-click="addMail()">Add Mail</button>
     <ul>
         <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete}" ng-repeat="a in customer.RECEIVES">{{a.use.use}},{{a.data.mail}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <img ng-src="img/delete.png" ng-click="telephoneToDelete(a)"/></li>
     </div>
