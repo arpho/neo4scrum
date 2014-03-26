@@ -6,29 +6,28 @@ describe('E2E: main page', function() {
     browser.get('http://127.0.0.1:7000/');
     ptor = protractor.getInstance();
     browser.get('http://arpho:7000/#/customer/25618')
-    var ele = by.id('addAddress');
-    element(by.id('addAddress')).click();
+    var ele = by.id('addTelephone');
+    element(by.id('addTelephone')).click();
   });
     
 
 
 it(" modal-Dialog should be open",function(){
-    var mod = by.id('addAddressDialog');
+    var mod = by.id('addTelephoneDialog');
     expect(ptor.isElementPresent(mod)).toBe(true);})
 
-it("should add an item to the address list with class 'nuovo'",function(){
-    ptor.findElements(protractor.By.repeater('a in customer.LIVES_IN')).then(function(arr) {
-      expect(arr.length).toEqual(2);
+it("should add an item to the telephone list with class 'nuovo'",function(){
+    ptor.findElements(protractor.By.repeater('a in customer.ANSWERS_TO')).then(function(arr) {
+      expect(arr.length).toEqual(1);
         var initial_length = arr.length;
       // set values to  new address
-      ptor.findElement(protractor.By.model('street')).sendKeys('via don Luigi sturzo');
-      ptor.findElement(protractor.By.model('city')).sendKeys('Giarre');
-      ptor.findElement(protractor.By.model('number')).sendKeys('88');
+      ptor.findElement(protractor.By.model('number')).sendKeys('095934441');
+      ptor.findElement(protractor.By.model('note')).sendKeys('Giarre');
       ptor.findElement(protractor.By.model('use')).sendKeys('nonno');
         element(by.id('fundooSuccessButton')).click();
         
         //check one address more
-        ptor.findElements(protractor.By.repeater('a in customer.LIVES_IN')).then(function(arr) {
+        ptor.findElements(protractor.By.repeater('a in customer.ANSWERS_TO')).then(function(arr) {
             
             expect(arr.length).toEqual(initial_length+1);
             var inserted_item = element(arr[arr.length-1]) //get the last element, the just inserted one

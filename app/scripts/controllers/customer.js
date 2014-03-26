@@ -8,7 +8,10 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $rootScope.customer = customer.data[0].data;
             $scope.addressToDelete = function(a){
                 a.toDelete = true;
-                                                }
+            }
+            $scope.telephoneToDelete = function(a){
+                a.toDelete = true;
+            }
             //aggiungo i campi dei dettagli
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
@@ -19,6 +22,25 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $rootScope.customer.address = {added:[],toDelete:[],modified:[]};
             $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
             $scope.action = 'update';
+            $scope.addTelephone = function(){
+                createDialogService('templates/addTelephone.html',{
+                    title: 'Add a Telephone number',
+                    id:'addTelephoneDialog',
+                    backdrop:true,
+                    controller:'AddTelephoneCtrl',
+                    success: {label: 'addTelephone', fn: function() {
+                        var telephone = {};
+                             telephone.just_insert = true
+                             telephone.number = document.getElementById('newNumber').form[0].value;
+                             telephone.note = document.getElementById('newNote').form[1].value;
+                             telephone.use = document.getElementById('newUse').form[2].value;
+                             $rootScope.customer.ANSWERS_TO.push({data:telephone,use:{use:telephone.use,id:-1}});                    
+                                                               
+                                                               }
+                             },
+                    
+                });
+            }
             $scope.addAddress = function(){
                 createDialogService('templates/addAddress.html',{
                     title: 'Add an address',
