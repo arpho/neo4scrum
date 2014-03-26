@@ -34,9 +34,9 @@ it("should add an item to the address list with class 'nuovo'",function(){
             var inserted_item = element(arr[arr.length-1]) //get the last element, the just inserted one
             //console.log(inserted_item);
             var lastRow = arr[arr.length-1];
-            console.log(lastRow.getText().then(function(v){
+            lastRow.getText().then(function(v){
                 expect(v).toMatch('nonno');
-            }));
+            });
             var attributes = '';
             //console.log(
                 arr[arr.length-1].getAttribute('className').then(function(o){
