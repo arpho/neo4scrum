@@ -35,8 +35,16 @@ angular.module('fundoo.services', []).factory('createDialog', ["$document", "$co
 
       var key;
       var idAttr = options.id ? ' id="' + options.id + '" ' : '';
-      var defaultFooter = '<button class="btn" ng-click="$modalCancel()">{{$modalCancelLabel}}</button>' +
-        '<button class="btn btn-primary" id="fundooSuccessButton" ng-click="$modalSuccess()">{{$modalSuccessLabel}}</button>';
+      var successEnabled = typeof(options.success.enabled) == 'undefined' || (options.success.enabled && true); // enabled if the option is not set or is set to true 
+      var cancelEnabled = typeof(options.cancel.enabled) == 'undefined' || (options.cancel.enabled && true); // enabled if the option is not set or is set to true 
+      var enabler = function(b) {
+          if (b){
+              return 'enabled'}
+           else{
+               return 'disabled'
+           }}
+      var defaultFooter = '<button '+ enabler(cancelEnabled)+' class="btn" ng-click="$modalCancel()">{{$modalCancelLabel}}</button>' +
+        '<button '+ enabler(successEnabled)+' class="btn btn-primary" id="fundooSuccessButton" ng-click="$modalSuccess()">{{$modalSuccessLabel}}</button>';
       var footerTemplate = '<div class="modal-footer">' +
         (options.footerTemplate || defaultFooter) +
         '</div>';

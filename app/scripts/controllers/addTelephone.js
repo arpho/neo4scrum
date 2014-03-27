@@ -9,4 +9,7 @@ angular.module('neo4ScrumApp').controller('AddTelephoneCtrl',['$scope','$http','
                              $rootScope.customer.LIVES_IN.push({data:telephone,use:{use:telephone.use,id:-1}});
                              //$rootScope..$modalClose();
                             }
+    $scope.numberEdited = function(){
+        document.getElementById('fundooSuccessButton').disabled = ! this.newTelephone.$valid;
+    }
 }]);

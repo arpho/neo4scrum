@@ -1,11 +1,9 @@
 <div id="ngpopup">
 <h3 class="the-header">{{controller.header}}</h3>
 <div class="the-body">
-    <form name="newAddress" clas='css-form' novalidate>
-    Numero: <input type='text' ng-model='number' id='newNumber' /><br>
-    Nota: <input type='text' ng-model='note' id='newNote'/><br>
-    Uso: <input type='text' ng-model='use' id='newUse'/><br>
+    <form name="newTelephone" clas='css-form' novalidate>
+    <label>Numero</label>: <input type='text' pattern="[0-9]{9}" ng-model='number' id='newNumber' ng-minlength=5 ng-maxlength=20 ng-change="numberEdited()"/><br>
+    <label>Nota</label>: <input type='text' ng-model='note' id='newNote'/><br>
+    <label>Uso</label>: <input type='text' ng-model='use' id='newUse'/><br>
     </form>
-</div>
-<a class="close">close</a>
-</div>
+        <div id="error-container">{{error}}</div>

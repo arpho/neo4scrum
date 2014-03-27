@@ -31,7 +31,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     id:'addTelephoneDialog',
                     backdrop:true,
                     controller:'AddTelephoneCtrl',
-                    success: {label: 'addTelephone', fn: function() {
+                    success: {label: 'addTelephone',enabled:false, fn: function() {
                         var telephone = {};
                              telephone.just_insert = true
                              telephone.number = document.getElementById('newNumber').form[0].value;
@@ -74,7 +74,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     id:'addMailDialog',
                     backdrop:true,
                     controller:'AddMailCtrl',
-                    success: {label: 'addMail', fn: function() {
+                    success: {label: 'addMail',enabled:false, fn: function() {
                         console.log('inside success');
                         var mail = {};
                              mail.just_insert = true
@@ -89,24 +89,12 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
                 });
             }
-            /*createDialogService('templates/example.html', {
-              id: 'testDialog',
-              title: 'A Complex Modal Dialog',
-              backdrop: true,
-             // controller: 'ComplexModalController',
-              success: {label: 'Success', fn: function() {console.log('Complex modal closed');}}
-            }, {
-        	  myVal: 15,
-        	  assetDetails: {
-        	  	name: 'My Asset',
-        	  	description: 'A Very Nice Asset'
-        	  }
-        	});*/
+            
              /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
              customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
              e quiundi il significato di item e lo aggiunge allo array relativo di customer*/
             var add2customer = function(triplet) {
-                console.log(triplet[1].type);
+                //console.log(triplet[1].type);
                 $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data,id:triplet[2].id});
             }
             var details = customer.data.length/3; // ottengo il numero dettagli afferenti al cliente

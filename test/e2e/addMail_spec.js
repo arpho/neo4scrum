@@ -11,8 +11,20 @@ describe('E2E: main page', function() {
   });
     
 
+it('should not enable for not valid email',function(){
+    ptor.findElement(protractor.By.model('mail')).sendKeys('arphoiol.it');
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(false);
+})
+it("should enable fundooSuccessButton only if a valid mail is inserted",function(){
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(false);
+    ptor.findElement(protractor.By.model('mail')).sendKeys('arpho@iol.it');
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(true);
+} )
 
-it(" modal-Dialog should be open",function(){
+it(" modal-Dialog for mail  should be open",function(){
     var mod = by.id('addMailDialog');
     expect(ptor.isElementPresent(mod)).toBe(true);})
 

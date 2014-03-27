@@ -8,4 +8,11 @@ angular.module('neo4ScrumApp').controller('AddMailCtrl',['$scope','$http','$rout
                              $rootScope.customer.LIVES_IN.push({data:mail,use:{use:mail.use,id:-1}});
                              //$rootScope..$modalClose();
                             }
+    $scope.error =' inserisci una mail valida';
+    $scope.mailEdited = function(){
+        document.getElementById('fundooSuccessButton').disabled = ! this.newMail.$valid;
+        if (this.newMail.$valid){
+            $scope.error = '';
+        }
+    }
 }]);

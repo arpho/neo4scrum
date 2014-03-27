@@ -10,7 +10,26 @@ describe('E2E: main page', function() {
     element(by.id('addTelephone')).click();
   });
     
+it("fundoSuccessButton not enabled for text",function(){ 
+    ptor.findElement(protractor.By.model('number')).sendKeys('abc');
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(false);
+    
+} )
 
+it("fundoSuccessButton not enabled short number",function(){ 
+    ptor.findElement(protractor.By.model('number')).sendKeys('1234');
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(false);
+    
+} )
+it("should enable fundooSuccessButton only if a valid number is inserted",function(){
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(false);
+    ptor.findElement(protractor.By.model('number')).sendKeys('095939625');
+    var success = element(by.id('fundooSuccessButton'));
+    expect(success.isEnabled()).toBe(true);
+} )
 
 it(" modal-Dialog should be open",function(){
     var mod = by.id('addTelephoneDialog');
