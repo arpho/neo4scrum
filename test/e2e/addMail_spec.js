@@ -19,9 +19,13 @@ it('should not enable for not valid email',function(){
 it("should enable fundooSuccessButton only if a valid mail is inserted",function(){
     var success = element(by.id('fundooSuccessButton'));
     expect(success.isEnabled()).toBe(false);
+    var error = element(by.id("error-container"));
+    expect(error.getText()).toMatch('inserisci una mail valida');
     ptor.findElement(protractor.By.model('mail')).sendKeys('arpho@iol.it');
     var success = element(by.id('fundooSuccessButton'));
     expect(success.isEnabled()).toBe(true);
+    var error = element(by.id("error-container"));
+    expect(error.getText()).toMatch('');
 } )
 
 it(" modal-Dialog for mail  should be open",function(){

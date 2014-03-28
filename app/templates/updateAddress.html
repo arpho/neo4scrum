@@ -1,0 +1,13 @@
+<div id="ngpopup">
+<h3 class="the-header">{{controller.header}}</h3>
+<div class="the-body">
+    <form name="newAddress" clas='css-form' novalidate>
+    <label>Via</label>: <input type='text' ng-model='street' id='newStreet' ng-change='change()'/><br>
+    <label>City</label>: <input type='text' ng-model='city' id='newCity' ng-change='change()'/><br>
+    <label>Cap</label>: <input type='text' ng-model='cap' id='newCap' ng-change='change()'/><br>
+    <label>Numero</label>: <input type='text' ng-model='number' id='newNumber' ng-change='change()'/><br>
+    <label>uso</label>: <input type='text' ng-model='use' id='newUse' ng-change='change()'/><br>
+    </form>
+</div>
+<a class="close">close</a>
+</div>

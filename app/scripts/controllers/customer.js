@@ -1,9 +1,21 @@
 'use strict';
 angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$routeParams','createDialog','$rootScope', function($scope,$http,$routeParams,createDialogService,$rootScope) {
     var customerId = $routeParams.customerId; 
+    var  indexOfId = function(l,id){
+        /* cerca la posizione dell'elemento con id specificato in una lista
+        @param []::[{id:object}]: lista in esame
+        @param object: id ricercato
+        @return int:-1 se non trova, altrimenti la posizione
+        */
+        for (var i=0;i<l.length;i++){
+            if (l[i].id==id){
+                return i;
+            }
+        }
+        return -1;
+    }
     if (typeof customerId != 'undefined') {
         $scope.pageTitle = "Customer's view"
-        console.log("cerco customer "+customerId);
         $http.get('/api/customer/:'+customerId).success(function(customer) {
             $rootScope.customer = customer.data[0].data;
             $scope.addressToDelete = function(a){
@@ -25,6 +37,70 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $rootScope.customer.address = {added:[],toDelete:[],modified:[]};
             $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
             $scope.action = 'update';
+            $scope.updatePhone = function(p){
+                $rootScope.updatingPhone = p;
+                createDialogService('templates/updateTelephone.html',{
+                    title: 'Update Mail',
+                    id:'updatePhoneDialog',
+                    backdrop:true,
+                    controller:'UpdatePhoneCtrl',
+                    success: {label: 'updatePhone',enabled:false, fn: function() {
+                        var phone = p;
+                             phone.updated = true;
+                                                          phone.mail = document.getElementById('newMail').form[0].value;
+                             phone.use.use = document.getElementById('newUse').form[2].value;
+                             phone.data.note = document.getElementById('newNote').form[1].value;
+                             phone.data.number = document.getElementById('newMail').form[0].value;
+                             var index = indexOfId($rootScope.customer.ANSWERS_TO,p.id); // cerco la posizione del telefono modificato nella lista                   
+                             $rootScope.customer.ANSWERS_TO[index] = phone;
+                                                               }
+                             },
+                    
+                });
+            }
+            $scope.updateMail = function(m){
+                $rootScope.updatingMail = m;
+                createDialogService('templates/updateMail.html',{
+                    title: 'Update Mail',
+                    id:'updateMailDialog',
+                    backdrop:true,
+                    controller:'UpdateMailCtrl',
+                    success: {label: 'updateMail',enabled:false, fn: function() {
+                        var mail = m;
+                             mail.updated = true
+                                                          mail.mail = document.getElementById('newMail').form[0].value;
+                             mail.use.use = document.getElementById('newUse').form[2].value;
+                             mail.data.note = document.getElementById('newNote').form[1].value;
+                             mail.data.mail = document.getElementById('newMail').form[0].value;
+                             var index = indexOfId($rootScope.customer.RECEIVES,m.id); // cerco la posizione dell'indirizzo modificato nella lista                   
+                             $rootScope.customer.RECEIVES[index] = mail;
+                                                               }
+                             },
+                    
+                });
+            }
+            $scope.updateAddress = function(a){
+                $rootScope.updatingAddress = a;
+                                                createDialogService('templates/updateAddress.html',{
+                    title: 'Update address',
+                    id:'updateAddressDialog',
+                    backdrop:true,
+                    controller:'UpdateAddressCtrl',
+                    success: {label: 'updateAddress',enabled:false, fn: function() {
+                        var address = a;
+                             address.updated = true
+                             address.data.street = document.getElementById('newStreet').form[0].value;
+                             address.data.city = document.getElementById('newStreet').form[1].value;
+                             address.data.cap = document.getElementById('newStreet').form[2].value;
+                             address.data.number = document.getElementById('newStreet').form[3].value;
+                             address.use.use = document.getElementById('newStreet').form[4].value;
+                             var index = indexOfId($rootScope.customer.LIVES_IN,a.id); // cerco la posizione dell'indirizzo modificato nella lista                   
+                             $rootScope.customer.LIVES_IN[index] = address;
+                                                               }
+                             },
+                    
+                });
+                                              }
             $scope.addTelephone = function(){
                 createDialogService('templates/addTelephone.html',{
                     title: 'Add a Telephone number',
@@ -51,7 +127,6 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     backdrop:true,
                     controller:'AddAddressCtrl',
                     success: {label: 'addAddress', fn: function() {
-                        console.log('inside success');
                         var address = {};
                              address.just_insert = true
                              address.street = document.getElementById('newStreet').form[0].value;

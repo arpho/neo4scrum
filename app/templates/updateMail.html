@@ -1,0 +1,25 @@
+<div id="ngpopup">
+<h3 class="the-header">{{controller.header}}</h3>
+<div class="the-body">
+    <form name="newMail" clas='css-form' novalidate>
+    <label>E-mail</label>: <input type='email' ng-model='mail' id='newMail' ng-class="{error: newMail.newMail.$dirty && newMail.newMail.$invalid} " ng-change="mailEdited()" ng-minlength=5 required ng-focus /><br>
+        <div class="error-container" 
+         ng-show="newMail.email.$dirty && newMail.email.$invalid">
+      <small class="error" 
+             ng-show="newMail.newMail.$error.required">
+             Your email is required.
+      </small>
+      <small class="error" 
+             ng-show="newMail.newMail.$error.minlength">
+              Your email is required to be at least 3 characters
+      </small>
+      <small class="error" 
+             ng-show="newMail.newMail.$error.email">
+             That is not a valid email. Please input a valid email.
+      </small>
+      
+    </div>
+    <label>Uso</label>: <input type='text' ng-model='use' id='newUse' ng-change="mailEdited()"/><br>
+    <label>Nota</label>: <input type='text' ng-model='note' id='newNote' ng-change="mailEdited()"/><br>
+        <div id="error-container">{{error}}</div>
+    </form>

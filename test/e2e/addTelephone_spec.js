@@ -26,9 +26,13 @@ it("fundoSuccessButton not enabled short number",function(){
 it("should enable fundooSuccessButton only if a valid number is inserted",function(){
     var success = element(by.id('fundooSuccessButton'));
     expect(success.isEnabled()).toBe(false);
+    var error = element(by.id("error-container"));
+    expect(error.getText()).toMatch("inserisci un numero di telefono valido");
     ptor.findElement(protractor.By.model('number')).sendKeys('095939625');
     var success = element(by.id('fundooSuccessButton'));
     expect(success.isEnabled()).toBe(true);
+    var error = element(by.id("error-container"));
+    expect(error.getText()).toMatch('');
 } )
 
 it(" modal-Dialog should be open",function(){

@@ -1,0 +1,9 @@
+<div id="ngpopup">
+<h3 class="the-header">{{controller.header}}</h3>
+<div class="the-body">
+    <form name="newTelephone" clas='css-form' novalidate>
+    <label>Numero</label>: <input type='text' pattern="[0-9]{9}" ng-model='number' id='newNumber' ng-minlength=5 ng-maxlength=20 ng-change="numberEdited()"/><br>
+    <label>Nota</label>: <input type='text' ng-model='note' id='newNote' ng-change="numberEdited()"/><br>
+    <label>Uso</label>: <input type='text' ng-model='use' id='newUse' ng-change="numberEdited()"/><br>
+    </form>
+        <div id="error-container">{{error}}</div>

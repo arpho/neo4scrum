@@ -124,6 +124,13 @@ input.ng-invalid {
 input.ng-valid {
   border: 1px solid green;
 }
+.hidden {
+    visibility:hidden;
+}
+
+.updated {
+    font-style: italic;
+}
 
 #error-container {
   color: red;

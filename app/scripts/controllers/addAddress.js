@@ -6,6 +6,7 @@ angular.module('neo4ScrumApp').controller('AddAddressCtrl',['$scope','$http','$r
                              address.cap = this.cap;
                              address.just_insert = true
                              address.use = this.use;
+                             address.via = this.via;
                              $rootScope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                              //$rootScope..$modalClose();
                             }
