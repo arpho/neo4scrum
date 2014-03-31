@@ -13,20 +13,20 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             }
         }
         return -1;
-    }
+    };
     if (typeof customerId != 'undefined') {
-        $scope.pageTitle = "Customer's view"
+        $scope.pageTitle = "Customer's view";
         $http.get('/api/customer/:'+customerId).success(function(customer) {
             $rootScope.customer = customer.data[0].data;
             $scope.addressToDelete = function(a){
                 a.toDelete = true;
-            }
+            };
             $scope.telephoneToDelete = function(a){
                 a.toDelete = true;
-            }
+            };
             $scope.mailToDelete = function(a){
                 a.toDelete = true;
-            }
+            };
             //aggiungo i campi dei dettagli
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
@@ -37,6 +37,12 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $rootScope.customer.address = {added:[],toDelete:[],modified:[]};
             $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
             $scope.action = 'update';
+            $scope.updateAction = function(){
+                console.log('updating')
+                $http.put('/api/mail/post',{data:{a:1,b:2,c:32},mailId:123456}).success(function(data){
+                    console.log('news from server');
+                })
+                                            };
             $scope.updatePhone = function(p){
                 $rootScope.updatingPhone = p;
                 createDialogService('templates/updateTelephone.html',{
@@ -57,7 +63,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     
                 });
-            }
+            };
             $scope.updateMail = function(m){
                 $rootScope.updatingMail = m;
                 createDialogService('templates/updateMail.html',{
@@ -67,7 +73,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     controller:'UpdateMailCtrl',
                     success: {label: 'updateMail',enabled:false, fn: function() {
                         var mail = m;
-                             mail.updated = true
+                             mail.updated = true;
                                                           mail.mail = document.getElementById('newMail').form[0].value;
                              mail.use.use = document.getElementById('newUse').form[2].value;
                              mail.data.note = document.getElementById('newNote').form[1].value;
@@ -78,7 +84,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     
                 });
-            }
+            };
             $scope.updateAddress = function(a){
                 $rootScope.updatingAddress = a;
                                                 createDialogService('templates/updateAddress.html',{
@@ -88,7 +94,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     controller:'UpdateAddressCtrl',
                     success: {label: 'updateAddress',enabled:false, fn: function() {
                         var address = a;
-                             address.updated = true
+                             address.updated = true;
                              address.data.street = document.getElementById('newStreet').form[0].value;
                              address.data.city = document.getElementById('newStreet').form[1].value;
                              address.data.cap = document.getElementById('newStreet').form[2].value;
@@ -100,7 +106,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     
                 });
-                                              }
+                                              };
             $scope.addTelephone = function(){
                 createDialogService('templates/addTelephone.html',{
                     title: 'Add a Telephone number',
@@ -109,7 +115,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     controller:'AddTelephoneCtrl',
                     success: {label: 'addTelephone',enabled:false, fn: function() {
                         var telephone = {};
-                             telephone.just_insert = true
+                             telephone.just_insert = true;
                              telephone.number = document.getElementById('newNumber').form[0].value;
                              telephone.note = document.getElementById('newNote').form[1].value;
                              telephone.use = document.getElementById('newUse').form[2].value;
@@ -119,7 +125,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     
                 });
-            }
+            };
             $scope.addAddress = function(){
                 createDialogService('templates/addAddress.html',{
                     title: 'Add an address',
@@ -128,7 +134,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     controller:'AddAddressCtrl',
                     success: {label: 'addAddress', fn: function() {
                         var address = {};
-                             address.just_insert = true
+                             address.just_insert = true;
                              address.street = document.getElementById('newStreet').form[0].value;
                              address.city = document.getElementById('newStreet').form[1].value;
                              address.cap = document.getElementById('newStreet').form[2].value;
@@ -142,7 +148,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
                 });
-            }
+            };
             $scope.addMail = function(){
                 createDialogService('templates/addMail.html',{
                     title: 'Add an E-mail',
@@ -152,7 +158,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     success: {label: 'addMail',enabled:false, fn: function() {
                         console.log('inside success');
                         var mail = {};
-                             mail.just_insert = true
+                             mail.just_insert = true;
                              mail.mail = document.getElementById('newMail').form[0].value;
                              mail.use = document.getElementById('newUse').form[1].value;
                              mail.note = document.getElementById('newNote').form[2].value;
@@ -163,7 +169,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              },
                     cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
                 });
-            }
+            };
             
              /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
              customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
@@ -171,18 +177,19 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             var add2customer = function(triplet) {
                 //console.log(triplet[1].type);
                 $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data,id:triplet[2].id});
-            }
+            };
             var details = customer.data.length/3; // ottengo il numero dettagli afferenti al cliente
             //aggiungo i dettagli a $scope.customer
             for (var i=0;i<details;i++) {
                 add2customer([customer.data[i*3],customer.data[i*3+1],customer.data[i*3+2]]);
             }
             
-        })
+        });
     }
     else {
             $scope.customer = {};
             $scope.action = 'save';
+            $scope.updateAction = function(){console.log('saving')};
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
             $scope.customer.RECEIVES = [];

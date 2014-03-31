@@ -20,8 +20,13 @@ fs.readdirSync(modelsPath).forEach(function (file) {
 require('./lib/db/dummydata');
 
 // Controllers
-var api = require('./lib/controllers/api');
-var apiCustomers = require('./lib/controllers/customers')
+var api = require('./lib/controllers/api'),
+    apiCustomers = require('./lib/controllers/customers'),
+    apiTelephone = require('./lib/controllers/telephone'),
+    apiMail = require('./lib/controllers/mail'),
+    apiAddress = require('./lib/controllers/address');
+
+
 
 // Express Configuration
 app.configure(function(){
@@ -46,6 +51,15 @@ app.configure('production', function(){
 app.get('/api/awesomeThings', api.awesomeThings);
 app.get('/api/customersList',apiCustomers.getCustomers);
 app.get('/api/customer/:customerId',apiCustomers.getCustomer);
+app.get('/api/telephone/add',apiTelephone.addTelephone);
+app.post('/api/telephone/update',apiTelephone.updateTelephone);
+app.delete('/api/telephone/delete',apiTelephone.deleteTelephone);
+app.put('/api/mail/add',apiMail.addMail);
+app.post('/api/telephone/update',apiMail.updateMail);
+app.delete('/api/telephone/delete',apiMail.deleteMail);
+app.put('/api/address/add',apiAddress.addAddress);
+app.post('/api/address/update',apiAddress.updateAddress);
+app.delete('/api/address/delete',apiAddress.deleteAddress);
 
 // Start server
 var port = process.env.PORT || 3000;
