@@ -14,6 +14,42 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         }
         return -1;
     };
+    $scope.customer = {};
+    //aggiungo i campi dei dettagli
+    $scope.customer.LIVES_IN = [];
+    $scope.customer.ANSWERS_TO = [];
+    $scope.customer.RECEIVES = [];
+    $scope.scrollList = function(listName,id){
+                /*esamina una lista di dettagli e costruisce la lista delle operazioni relativa
+                @param string: nome della lista <LIVES_IN,ANSWERS_TO,RECEIVES>
+                param string: genere del dettaglio<mail,address,telephone,project>*/
+                var operations = [];
+                for (var i=0;i<$scope.customer[listName].length;i++){
+                    if ($scope.customer[listName][i].toDelete){
+                       
+                            if ($scope.customer[listName][i].id){ /* se è appena stato aggiunto, ma non ancora committato 
+                            non ha id e produrebbe un errore nel server cercare di cancellare qualcosa ,che non è sul db*/
+                                 operations.push({detail_type:id,operation:'delete',id:$scope.customer[listName][i].id});
+                            }
+                            continue; //non serve controllare se è appena stato inserito o modificato
+                                        }
+                             if ($scope.customer[listName][i].just_insert){
+                                //faccio pulizia
+                                delete $scope.customer[listName][i].just_insert;
+                                delete $scope.customer[listName][i].updated;
+                                operations.push({detail_type:id,operation:'add',data:$scope.customer[listName][i].data,use:$scope.customer[listName][i].use});
+
+                            }
+                            if($scope.customer[listName][i].updated){
+                                //pulisco il dettaglio
+                                delete $scope.customer[listName][i].updated;
+                                delete $scope.customer[listName][i].updateAddress;
+                                // non serve controllare se ha id per chè se fosse  appena inserito scatterebbe il precedente if e non arriveremmo qui
+                                    operations.push({detail_type:id,operation:'update',data:$scope.customer[listName][i].data,id:$scope.customer[listName][i].id,use:$scope.customer[listName][i].use});
+                            }
+                    }                   
+                return operations;
+    };
     if (typeof customerId != 'undefined') {
         $scope.pageTitle = "Customer's view";
         $http.get('/api/customer/:'+customerId).success(function(customer) {
@@ -27,22 +63,25 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $scope.mailToDelete = function(a){
                 a.toDelete = true;
             };
-            //aggiungo i campi dei dettagli
-            $scope.customer.LIVES_IN = [];
-            $scope.customer.ANSWERS_TO = [];
-            $scope.customer.RECEIVES = [];
+            
+            $scope.generateOperations = function() {
+                /* wrapper di scrollList, scorre le liste dei dettagli alla ricerca di elementi nuovi, modificati o da cancellare, appoggiandosi a scrollList*/
+            };
             $scope.customer.id = customer.data[0].id;
+            });// eof get.success
+        
+            /*
             $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
             $rootScope.customer.phones = {added:[],toDelete:[],modified:[]};
             $rootScope.customer.address = {added:[],toDelete:[],modified:[]};
-            $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};
+            $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};*/
             $scope.action = 'update';
             $scope.updateAction = function(){
-                console.log('updating')
+                console.log('updating');
                 $http.put('/api/mail/post',{data:{a:1,b:2,c:32},mailId:123456}).success(function(data){
                     console.log('news from server');
-                })
-                                            };
+                });
+            };
             $scope.updatePhone = function(p){
                 $rootScope.updatingPhone = p;
                 createDialogService('templates/updateTelephone.html',{
@@ -184,14 +223,16 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                 add2customer([customer.data[i*3],customer.data[i*3+1],customer.data[i*3+2]]);
             }
             
-        });
+        
     }
     else {
             $scope.customer = {};
             $scope.action = 'save';
-            $scope.updateAction = function(){console.log('saving')};
+            $scope.updateAction = function(){
+                console.log('saving');
+                                            };
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
             $scope.customer.RECEIVES = [];
     }
-}])
+}]);
