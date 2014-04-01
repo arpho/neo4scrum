@@ -40,7 +40,6 @@ it("updating the use should be reflected in the main window",function(){
     ptor.findElements(protractor.By.repeater('a in customer.RECEIVES')).then(function(arr) {
         var a = arr[0];
         a.getText().then(function(t){
-            console.log(t);
             expect(t).toMatch('updated');
                                     })
 })

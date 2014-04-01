@@ -32,8 +32,8 @@ it("updating the use should be reflected in the main window",function(){
 });
 });
 
-it("updating the city should be reflected in the main window",function(){
-    ptor.findElement(protractor.By.model('city')).sendKeys('updated');
+it("updating the note should be reflected in the main window",function(){
+    ptor.findElement(protractor.By.model('note')).sendKeys('updated');
     element(by.id('fundooSuccessButton')).click();
     ptor.findElements(protractor.By.repeater('a in customer.ANSWERS_TO')).then(function(arr) {
         var a = arr[0];
@@ -43,8 +43,8 @@ it("updating the city should be reflected in the main window",function(){
 });
 });
 
-it("updating the cap should be reflected in the main window",function(){
-    ptor.findElement(protractor.By.model('cap')).sendKeys('updated');
+it("updating the use should be reflected in the main window",function(){
+    ptor.findElement(protractor.By.model('use')).sendKeys('updated');
     element(by.id('fundooSuccessButton')).click();
     ptor.findElements(protractor.By.repeater('a in customer.ANSWERS_TO')).then(function(arr) {
         var a = arr[0];

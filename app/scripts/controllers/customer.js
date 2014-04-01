@@ -47,16 +47,16 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                 $rootScope.updatingPhone = p;
                 createDialogService('templates/updateTelephone.html',{
                     title: 'Update Mail',
-                    id:'updatePhoneDialog',
+                    id:'updateTelephoneDialog',
                     backdrop:true,
                     controller:'UpdatePhoneCtrl',
                     success: {label: 'updatePhone',enabled:false, fn: function() {
                         var phone = p;
                              phone.updated = true;
-                                                          phone.mail = document.getElementById('newMail').form[0].value;
+                                                          phone.data.number = document.getElementById('newNumber').form[0].value;
                              phone.use.use = document.getElementById('newUse').form[2].value;
                              phone.data.note = document.getElementById('newNote').form[1].value;
-                             phone.data.number = document.getElementById('newMail').form[0].value;
+                             //phone.data.number = document.getElementById('newTelephone').form[0].value;
                              var index = indexOfId($rootScope.customer.ANSWERS_TO,p.id); // cerco la posizione del telefono modificato nella lista                   
                              $rootScope.customer.ANSWERS_TO[index] = phone;
                                                                }
