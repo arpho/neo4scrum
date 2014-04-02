@@ -15,37 +15,44 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         return -1;
     };
     $rootScope.customer = {};
-    $scope.scrollList = function(listName,id){
+    $scope.scrollList = function(operations,listName,id){
                 /*esamina una lista di dettagli e costruisce la lista delle operazioni relativa
                 @param string: nome della lista <LIVES_IN,ANSWERS_TO,RECEIVES>
                 param string: genere del dettaglio<mail,address,telephone,project>*/
-                var operations = [];
+                //var operations = [];
                 for (var i=0;i<$scope.customer[listName].length;i++){
-                    if ($scope.customer[listName][i].toDelete){
-                       
-                            if ($scope.customer[listName][i].id){ /* se è appena stato aggiunto, ma non ancora committato 
+                    if ($scope.customer[listName][i].data.toDelete){
+                            if ($scope.customer[listName][i].id!=-1){ /* se è appena stato aggiunto, ma non ancora committato 
                             non ha id e produrebbe un errore nel server cercare di cancellare qualcosa ,che non è sul db*/
                                  operations.push({detail_type:id,operation:'delete',id:$scope.customer[listName][i].id});
                             }
                             continue; //non serve controllare se è appena stato inserito o modificato
                                         }
-                             if ($scope.customer[listName][i].just_insert){
+                             if ($scope.customer[listName][i].data.just_insert){
                                 //faccio pulizia
-                                delete $scope.customer[listName][i].just_insert;
-                                delete $scope.customer[listName][i].updated;
+                                //delete $scope.customer[listName][i].data.just_insert;
+                                //delete $scope.customer[listName][i].data.updated;
                                 operations.push({detail_type:id,operation:'add',data:$scope.customer[listName][i].data,use:$scope.customer[listName][i].use});
+                                continue; // non  importa se è stato pure modificato
 
                             }
-                            if($scope.customer[listName][i].updated){
-                                //pulisco il dettaglio
-                                delete $scope.customer[listName][i].updated;
-                                delete $scope.customer[listName][i].updateAddress;
+                            if($scope.customer[listName][i].data.updated){
+                                //non pulisco il dettaglio adesso, ma appena prima di inviarlo al server
+                                //delete $scope.customer[listName][i].data.updated;
+                                //delete $scope.customer[listName][i].data.updateAddress;
                                 // non serve controllare se ha id per chè se fosse  appena inserito scatterebbe il precedente if e non arriveremmo qui
                                     operations.push({detail_type:id,operation:'update',data:$scope.customer[listName][i].data,id:$scope.customer[listName][i].id,use:$scope.customer[listName][i].use});
                             }
-                    }                   
+                    }                 
                 return operations;
     };
+    $scope.generateOperations = function() {
+                /* wrapper di scrollList, scorre le liste dei dettagli alla ricerca di elementi nuovi, modificati o da cancellare, appoggiandosi a scrollList*/
+               var operations = $scope.scrollList([],'LIVES_IN','address'); // get operations for address
+               operations = $scope.scrollList(operations,'RECEIVES','mail'); //get operations for telephone
+               operations = $scope.scrollList(operations,'ANSWERS_TO','telephone');
+               return operations;
+            };
     if (typeof customerId != 'undefined') {
         $scope.pageTitle = "Customer's view";
         $http.get('/api/customer/:'+customerId).success(function(customer) {
@@ -77,9 +84,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                 a.toDelete = true;
             };
             
-            $scope.generateOperations = function() {
-                /* wrapper di scrollList, scorre le liste dei dettagli alla ricerca di elementi nuovi, modificati o da cancellare, appoggiandosi a scrollList*/
-            };
+            
             $scope.customer.id = customer.data[0].id;
             });// eof get.success
         
@@ -90,10 +95,11 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $rootScope.customer.mails = {added:[],toDelete:[],modified:[]};*/
             $scope.action = 'update';
             $scope.updateAction = function(){
-                console.log('updating');
-                $http.put('/api/mail/post',{data:{a:1,b:2,c:32},mailId:123456}).success(function(data){
-                    console.log('news from server');
-                });
+            	var operations = $scope.generateOperations();
+            	console.debug(operations);
+                /*$http.put('/api/mail/post',{data:{a:1,b:2,c:32},mailId:123456}).success(function(data){
+                   // console.log('news from server');
+                });*/
             };
             $scope.updatePhone = function(p){
                 $rootScope.updatingPhone = p;
@@ -193,12 +199,12 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              address.number = document.getElementById('newStreet').form[3].value;
                              address.use = document.getElementById('newStreet').form[4].value;
                              $scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
-                        console.log('Complex modal closed');
+                        //console.log('Complex modal closed');
                         
                                                                
                                                                }
                              },
-                    cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
+                    cancel: {label: 'Cancel', fn: function() {}}
                 });
             };
             $scope.addMail = function(){
@@ -208,7 +214,6 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                     backdrop:true,
                     controller:'AddMailCtrl',
                     success: {label: 'addMail',enabled:false, fn: function() {
-                        console.log('inside success');
                         var mail = {};
                              mail.just_insert = true;
                              mail.mail = document.getElementById('newMail').form[0].value;
@@ -219,7 +224,8 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                                                                
                                                                }
                              },
-                    cancel: {label: 'Cancel', fn: function() {console.log('addAddress window closed');}}
+                    cancel: {label: 'Cancel', fn: function() {//console.log('addAddress window closed');
+                    }}
                 });
             };
             
@@ -231,7 +237,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
             $scope.customer = {};
             $scope.action = 'save';
             $scope.updateAction = function(){
-                console.log('saving');
+               // console.log('saving');
                                             };
             $scope.customer.LIVES_IN = [];
             $scope.customer.ANSWERS_TO = [];
