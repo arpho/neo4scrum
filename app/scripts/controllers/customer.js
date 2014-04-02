@@ -14,11 +14,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
         }
         return -1;
     };
-    $scope.customer = {};
-    //aggiungo i campi dei dettagli
-    $scope.customer.LIVES_IN = [];
-    $scope.customer.ANSWERS_TO = [];
-    $scope.customer.RECEIVES = [];
+    $rootScope.customer = {};
     $scope.scrollList = function(listName,id){
                 /*esamina una lista di dettagli e costruisce la lista delle operazioni relativa
                 @param string: nome della lista <LIVES_IN,ANSWERS_TO,RECEIVES>
@@ -53,7 +49,24 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
     if (typeof customerId != 'undefined') {
         $scope.pageTitle = "Customer's view";
         $http.get('/api/customer/:'+customerId).success(function(customer) {
-            $rootScope.customer = customer.data[0].data;
+            $scope.customer = customer.data[0].data;
+		    //aggiungo i campi dei dettagli
+		    $scope.customer.LIVES_IN = [];
+		    $scope.customer.ANSWERS_TO = [];
+		    $scope.customer.RECEIVES = [];
+            $scope.customer.data = customer.data;
+            /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
+             customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
+             e quiundi il significato di item e lo aggiunge allo array relativo di customer*/
+            var add2customer = function(triplet) {
+                //console.log(triplet[1].type);
+                $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data,id:triplet[2].id});
+            };
+            var details = $scope.customer.data.length/3; // ottengo il numero dettagli afferenti al cliente
+            //aggiungo i dettagli a $scope.customer
+            for (var i=0;i<details;i++) {
+                add2customer([$scope.customer.data[i*3],$scope.customer.data[i*3+1],$scope.customer.data[i*3+2]]);
+            }
             $scope.addressToDelete = function(a){
                 a.toDelete = true;
             };
@@ -97,7 +110,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              phone.data.note = document.getElementById('newNote').form[1].value;
                              //phone.data.number = document.getElementById('newTelephone').form[0].value;
                              var index = indexOfId($rootScope.customer.ANSWERS_TO,p.id); // cerco la posizione del telefono modificato nella lista                   
-                             $rootScope.customer.ANSWERS_TO[index] = phone;
+                             $scope.customer.ANSWERS_TO[index] = phone;
                                                                }
                              },
                     
@@ -118,7 +131,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              mail.data.note = document.getElementById('newNote').form[1].value;
                              mail.data.mail = document.getElementById('newMail').form[0].value;
                              var index = indexOfId($rootScope.customer.RECEIVES,m.id); // cerco la posizione dell'indirizzo modificato nella lista                   
-                             $rootScope.customer.RECEIVES[index] = mail;
+                             $scope.customer.RECEIVES[index] = mail;
                                                                }
                              },
                     
@@ -140,7 +153,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              address.data.number = document.getElementById('newStreet').form[3].value;
                              address.use.use = document.getElementById('newStreet').form[4].value;
                              var index = indexOfId($rootScope.customer.LIVES_IN,a.id); // cerco la posizione dell'indirizzo modificato nella lista                   
-                             $rootScope.customer.LIVES_IN[index] = address;
+                             $scope.customer.LIVES_IN[index] = address;
                                                                }
                              },
                     
@@ -158,7 +171,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              telephone.number = document.getElementById('newNumber').form[0].value;
                              telephone.note = document.getElementById('newNote').form[1].value;
                              telephone.use = document.getElementById('newUse').form[2].value;
-                             $rootScope.customer.ANSWERS_TO.push({data:telephone,use:{use:telephone.use,id:-1}});                    
+                             $scope.customer.ANSWERS_TO.push({data:telephone,use:{use:telephone.use,id:-1}});                    
                                                                
                                                                }
                              },
@@ -179,7 +192,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              address.cap = document.getElementById('newStreet').form[2].value;
                              address.number = document.getElementById('newStreet').form[3].value;
                              address.use = document.getElementById('newStreet').form[4].value;
-                             $rootScope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
+                             $scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                         console.log('Complex modal closed');
                         
                                                                
@@ -201,7 +214,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                              mail.mail = document.getElementById('newMail').form[0].value;
                              mail.use = document.getElementById('newUse').form[1].value;
                              mail.note = document.getElementById('newNote').form[2].value;
-                             $rootScope.customer.RECEIVES.push({data:mail,use:{use:mail.use,id:-1}});
+                             $scope.customer.RECEIVES.push({data:mail,use:{use:mail.use,id:-1}});
                         
                                                                
                                                                }
@@ -210,18 +223,7 @@ angular.module('neo4ScrumApp').controller('CustomerCtrl',['$scope','$http','$rou
                 });
             };
             
-             /* i dati in arrivo dal server sono organizzabili in triplette [customer,relazione,item]
-             customer è sempre lo stesso di data[0].data definisco una funzione che interpreta i valori di relazione
-             e quiundi il significato di item e lo aggiunge allo array relativo di customer*/
-            var add2customer = function(triplet) {
-                //console.log(triplet[1].type);
-                $scope.customer[triplet[1].type].push({data:triplet[2].data,use:triplet[1].data,id:triplet[2].id});
-            };
-            var details = customer.data.length/3; // ottengo il numero dettagli afferenti al cliente
-            //aggiungo i dettagli a $scope.customer
-            for (var i=0;i<details;i++) {
-                add2customer([customer.data[i*3],customer.data[i*3+1],customer.data[i*3+2]]);
-            }
+             
             
         
     }
