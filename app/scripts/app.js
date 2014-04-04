@@ -17,7 +17,7 @@ angular.module('neo4ScrumApp', [
         controller:'CustomersListCtrl'
     }).when('/customer/:customerId',{
         templateUrl: 'views/customer.html',
-        controller: 'CustomerCtrl'
+        controller: 'CustomerUpdateCtrl'
     })
       .otherwise({
         redirectTo: '/'
