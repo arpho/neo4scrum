@@ -53,13 +53,13 @@ app.get('/api/customersList',apiCustomers.getCustomers);
 app.get('/api/customer/:customerId',apiCustomers.getCustomer);
 app.get('/api/telephone/add',apiTelephone.addTelephone);
 app.post('/api/telephone/update',apiTelephone.updateTelephone);
-app.delete('/api/telephone/delete',apiTelephone.deleteTelephone);
+//app.delete('/api/telephone/delete',apiTelephone.deleteTelephone);
 app.put('/api/mail/add',apiMail.addMail);
 app.post('/api/mail/update',apiMail.updateMail);
 app.post('/api/mail/delete',apiMail.deleteMail);
 app.put('/api/address/add',apiAddress.addAddress);
 app.post('/api/address/update',apiAddress.updateAddress);
-app.delete('/api/address/delete',apiAddress.deleteAddress);
+//app.delete('/api/address/delete',apiAddress.deleteAddress);
 
 // Start server
 var port = process.env.PORT || 3000;
