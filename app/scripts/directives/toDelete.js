@@ -11,7 +11,7 @@ directive('toDelete', function(){
       },
         link: function(scope, element, attrs){
             scope.delete = function(){
-                scope.item.toDelete=true;
+                scope.item.toDelete = true;
             }
         }
     }

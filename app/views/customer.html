@@ -13,7 +13,7 @@
         </div>
     <div id="customerAddress">
     <h4>Address</h4>
-        <button id="addAddress" ng-click="addAddress()">Add Address</button>
+        <scrum-add-address id="addAddress"></scrum-add-address>
 <ul>
     <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete><img ng-src="img/pencil.png" ng-click="updateAddress(a)" id="{{'updateAddress'+a.id}}"></li>
     </ul>
