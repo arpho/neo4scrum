@@ -22,7 +22,7 @@ directive('scrumAddAddress',['createDialog',function(createDialogService){
                              address.cap = document.getElementById('newStreet').form[2].value;
                              address.number = document.getElementById('newStreet').form[3].value;
                              address.use = document.getElementById('newStreet').form[4].value;
-                             $scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
+                             scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                         //console.log('Complex modal closed');
                         
                                                                
