@@ -15,16 +15,17 @@
     <h4>Address</h4>
         <scrum-add-address id="addAddress"></scrum-add-address>
 <ul>
-    <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete><img ng-src="img/pencil.png" ng-click="updateAddress(a)" id="{{'updateAddress'+a.id}}"></li>
+    <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete>
+        <scrum-update-address item ="a"  swapper="swapAddress" updater="addressUpdater" ></scrum-update-address ></li>
     </ul>
 </div>
     <div id='customerPhone'>
         <h4>Telefoni</h4>
-        <button id="addTelephone" ng-click="addTelephone()">Add Telephone</button>
+        <scrum-add-telephone id="addTelephone" ></scrum-add-telephone>
     <ul><li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.ANSWERS_TO">{{a.use.use}},{{a.data.note}},{{a.data.number}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete><img ng-src="img/pencil.png" ng-click="updatePhone(a)" id="{{'updatePhone'+a.id}}"></li></ul>
     </div>
     <div id='customerEmail'><h4>Emails</h4>
-        <button id="addMail" ng-click="addMail()">Add Mail</button>
+        <scrum-add-mail id="addMail" ></scrum-add-mail>
     <ul>
         <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.RECEIVES">{{a.use.use}},{{a.data.mail}}:{{a.data.note}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete><img ng-src="img/pencil.png" ng-click="updateMail(a)" id="{{'updateMail'+a.id}}"></li>
     </div>
@@ -40,3 +41,4 @@
   <p>♥ from the Arpho team</p>
     <button id="addCust"  ng-click="updateAction()">{{action}} Customer</button>
 </div>
+<!--> id="{{'updateAddress'+a.id}}"-->

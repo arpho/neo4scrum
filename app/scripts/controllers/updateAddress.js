@@ -1,10 +1,10 @@
 'use strict';
-angular.module('neo4ScrumApp').controller('UpdateAddressCtrl',['$scope','$http','$routeParams','createDialog','$rootScope', function($scope,$http,$routeParams,createDialogService,$rootScope) {
-    $scope.city = $rootScope.updatingAddress.data.city;
-    $scope.number = $rootScope.updatingAddress.data.number;
-    $scope.cap = $rootScope.updatingAddress.data.cap;
-    $scope.use = $rootScope.updatingAddress.data.use;
-    $scope.street = $rootScope.updatingAddress.data.street;
+angular.module('neo4ScrumApp').controller('UpdateAddressCtrl',['$scope','$http','$routeParams','createDialog','$rootScope','updateAddressService', function($scope,$http,$routeParams,createDialogService,$rootScope,updateAddressService) {
+    $scope.city = updateAddressService.getItem().data.city;
+    $scope.number = updateAddressService.getItem().data.number;
+    $scope.cap = updateAddressService.getItem().data.cap;
+    $scope.use = updateAddressService.getItem().data.use;
+    $scope.street = updateAddressService.getItem().data.street;
     $scope.change = function(){
         document.getElementById('fundooSuccessButton').disabled = false;
     }

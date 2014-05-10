@@ -1,13 +1,16 @@
 'use strict';
 
 angular.module('neo4ScrumApp').
-directive('scrumAddAddress',['createDialog',function(createDialogService){
+directive('scrumAddAddress',['createDialog',function(createDialogService,updateAddressService){
     return {
-        template: '<img ng-src="img/add.png"  ng-click="nuovo()"',
+        template: '<img ng-src="img/add.png"  ng-click="newAddress()"',
     restrict: 'E',
         replace:true,
+        scope: {
+        item: '='
+      },
         link: function(scope,createDialog){
-            scope.nuovo = function(){
+            scope.newAddress = function(){
                 console.debug('link');
                 createDialogService('templates/addAddress.html',{
                     title: 'Add an address',

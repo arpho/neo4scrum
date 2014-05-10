@@ -10,7 +10,10 @@ directive('toDelete', function(){
         item: '='
       },
         link: function(scope, element, attrs){
+            
             scope.delete = function(){
+                console.log('deleting');
+                console.log(scope.item);
                 scope.item.toDelete = true;
             }
         }
