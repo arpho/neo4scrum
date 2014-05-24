@@ -8,17 +8,16 @@ directive('scrumUpdateAddress',['createDialog','updateAddressService',function(c
         replace:true,
         scope: {
         item: '=',
-        swapper:'=',
-            updater:'='
+        swapper:'=', // è il servizio che serve le funzioni da usare nella direttiva
+            updater:'=', // aggiorna il parametro nella lista corrispondente
       },
         link:function(scope, element, attrs,createDialog){
-            console.log("link up");
             scope.updateAddressPencil = function(){
                 scope.swapper.setItem(scope.item);
                 scope.item.updated = true;
                 //cope.updatingAddress = scope.item;
-                console.log('dialog todo');
-                createDialogService('templates/updateAddress.html',{
+                scope.swapper.updaterDialog(scope.updater,scope.swapper);
+                /*createDialogService('templates/updateAddress.html',{
                         title: 'Update an address',
                         id:'updateAddressDialog',
                         backdrop:true,
@@ -43,7 +42,7 @@ directive('scrumUpdateAddress',['createDialog','updateAddressService',function(c
                                                                    }
                                  },
                         cancel: {label: 'Cancel', fn: function() {}}
-                 });
+                 });*/
             }
         }
         }

@@ -5,7 +5,8 @@ angular.module('neo4ScrumApp', [
   'ngResource',
   'ngSanitize',
   'ngRoute',
-    'fundoo.services'
+    'fundoo.services',
+    'ui.bootstrap'
 ])
   .config(function ($routeProvider) {
     $routeProvider
