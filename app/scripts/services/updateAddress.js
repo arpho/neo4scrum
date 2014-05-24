@@ -1,12 +1,12 @@
 'use strict';
 angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', function(createDialogService) {
-    var address = null;
+    var Address = null;
     return {
         setItem: function(v){
-            address = v;
+            Address = v;
         },
         getItem: function(){
-            return address;
+            return Address;
         },
         updaterDialog:function(updater,swapper){
             createDialogService('templates/updateAddress.html',{
@@ -24,7 +24,7 @@ angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', f
                                  address.data.cap = document.getElementById('newStreet').form[2].value;
                                  address.data.number = document.getElementById('newStreet').form[3].value;
                                  address.use.use = document.getElementById('newStreet').form[4].value;
-                                address.id = swapper.getItem().id;
+                                address.id = Address.id;
                                 // scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                             //cerco la posizione dell'oggetto nella lista
                             //sostituisco l'indirizzo aggiornato
