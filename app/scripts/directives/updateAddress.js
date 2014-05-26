@@ -10,13 +10,14 @@ directive('scrumUpdateAddress',['createDialog','updateAddressService',function(c
         item: '=',
         swapper:'=', // è il servizio che serve le funzioni da usare nella direttiva
             updater:'=', // aggiorna il parametro nella lista corrispondente
+            customer:'='
       },
         link:function(scope, element, attrs,createDialog){
             scope.updateAddressPencil = function(){
                 scope.swapper.setItem(scope.item);
                 scope.item.updated = true;
                 //cope.updatingAddress = scope.item;
-                scope.swapper.updaterDialog(scope.updater,scope.swapper);
+                scope.swapper.updaterDialog(scope.customer);
                 /*createDialogService('templates/updateAddress.html',{
                         title: 'Update an address',
                         id:'updateAddressDialog',

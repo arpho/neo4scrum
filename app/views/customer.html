@@ -16,7 +16,7 @@
         <scrum-add-address id="addAddress"></scrum-add-address>
 <ul>
     <li ng-class="{nuovo:a.data.just_insert, strike:a.toDelete,updated:a.updated}" ng-repeat="a in customer.LIVES_IN">{{a.use.use}}: {{a.data.street}} {{a.data.number}}, {{a.data.city}}, {{a.data.cap}}<img ng-src="img/new.png" ng-show="a.data.just_insert"/> <to-delete item ="a"></to-delete>
-        <scrum-update-address item ="a"  swapper="swapAddress" updater="addressUpdater" ></scrum-update-address ></li>
+        <scrum-update-address item ="a"  swapper="swapAddress" updater="addressUpdater" customer="customer" ></scrum-update-address ></li>
     </ul>
 </div>
     <div id='customerPhone'>
