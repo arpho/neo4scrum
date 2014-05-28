@@ -1,5 +1,5 @@
 'use strict';
-angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', function(createDialogService,$scope) {
+angular.module('neo4ScrumApp').service('updateAddressService',['createDialog','utility', function(createDialogService,utility,$scope) {
     var Address = null,
         indexOfId = function(l,id){
         /* cerca la posizione dell'elemento con id specificato in una lista
@@ -17,7 +17,7 @@ angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', f
     var addressUpdater = function(address,customer){
             var index = indexOfId(customer.LIVES_IN,address.id);
             customer.LIVES_IN[index] = address;
-        }
+        };
     
     return {
         setItem: function(v){
@@ -34,7 +34,7 @@ angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', f
                         controller:'UpdateAddressCtrl',
                         success: {label: 'UpdateAddress', fn: function() {
                                  var address = {};
-                                 address.data = {}
+                                 address.data = {};
                                  address.use = {};
                                  address.updated = true;
                                  address.data.street = document.getElementById('newStreet').form[0].value;
@@ -46,11 +46,12 @@ angular.module('neo4ScrumApp').service('updateAddressService',['createDialog', f
                                 // scope.customer.LIVES_IN.push({data:address,use:{use:address.use,id:-1}});
                             //cerco la posizione dell'oggetto nella lista
                             //sostituisco l'indirizzo aggiornato
-                            addressUpdater(address,customer);
+                         //   addressUpdater(address,customer);
+                            utility.updater('LIVES_IN',customer,address);
                         }
                                  },
                         cancel: {label: 'Cancel', fn: function() {}}
                  });
         }
-    }
+    };
 }]);
