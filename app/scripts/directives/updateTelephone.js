@@ -1,9 +1,9 @@
 'use strict';
 
 angular.module('neo4ScrumApp').
-directive('scrumUpdateAddress',['createDialog','updateAddressService',function(createDialogService,rootScope,updateAddressService){
+directive('scrumUpdateTelephone',['createDialog','updateTelephoneService',function(createDialogService,rootScope,updateAddressService){
     return {
-        template: '<img ng-src="img/pencil.png"  ng-click="updateAddressPencil()"',
+        template: '<img ng-src="img/pencil.png"  ng-click="updateTelephonePencil()"',
     restrict: 'E',
         replace:true,
         scope: {
@@ -13,7 +13,7 @@ directive('scrumUpdateAddress',['createDialog','updateAddressService',function(c
             customer:'='
       },
         link:function(scope, element, attrs,createDialog){
-            scope.updateAddressPencil = function(){
+            scope.updateTelephonePencil = function(){
                 scope.swapper.setItem(scope.item);
                 scope.item.updated = true;
                 //cope.updatingAddress = scope.item;

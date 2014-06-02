@@ -1,8 +1,9 @@
 'use strict';
-angular.module('neo4ScrumApp').controller('UpdateMailCtrl',['$scope','$http','$routeParams','createDialog','$rootScope', function($scope,$http,$routeParams,createDialogService,$rootScope) {
-    $scope.use = $rootScope.updatingMail.data.use;
-    $scope.note = $rootScope.updatingMail.data.note;
-    $scope.mail = $rootScope.updatingMail.data.mail;
+angular.module('neo4ScrumApp').controller('UpdateMailCtrl',['$scope','$http','$routeParams','createDialog','$rootScope','updateMailService', function($scope,$http,$routeParams,createDialogService,$rootScope,updateMailService) {
+    //$scope.city = updateAddressService.getItem().data.city;
+    $scope.use = updateMailService.getItem().data.use;
+    $scope.note = updateMailService.getItem().data.note;
+    $scope.mail = updateMailService.getItem().data.mail;
     $scope.change = function(){
         document.getElementById('fundooSuccessButton').disabled = false;
     };
